@@ -1,5 +1,5 @@
 # Code Quiz
-This lets the user take a timed javascript code quiz and compare local scores.
+This lets the user take a timed javascript code quiz and compare local scores. It is written entirely in vanilla javascript.
 
 ## Deployment
 https://outofthepark.github.io/codequiz/
