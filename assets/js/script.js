@@ -39,7 +39,7 @@ document.querySelector("#highScoresLink").addEventListener('click', function(){
 function loadHomepage() {
     clearPage();
     
-    homePageDiv.appendChild(createElement('p', {'id': 'homePageDescription'}, 'Try to answer the following code-related questions with the time limit. Keep in mind that incorrect answerrs will penalize your score/time by ten seconds!'));
+    homePageDiv.appendChild(createElement('p', {'id': 'homePageDescription'}, 'Try to answer the following code-related questions with the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!'));
     homePageDiv.appendChild(createElement('button', {'id': 'homePageStartButton'}, 'Start Quiz'));
 
     document.querySelector('#homePageStartButton').addEventListener('click', loadQuiz );
