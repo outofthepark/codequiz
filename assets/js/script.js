@@ -7,13 +7,22 @@ var retakeQuizDiv = document.querySelector('#retakeQuizDiv');
 var clearHighScoresDiv = document.querySelector('#clearHighScoresDiv');
 var currentScoreDiv = document.querySelector('#currentScoreDiv');
 var scoresTableDiv = document.querySelector('#scoresTableDiv');
-var quiz = { 'Commonly used data types DO Not Include': ['alerts', 'strings', 'booleans', 'alerts', 'numbers'], 
-                'The condition in an if/else statement is enclosed with ________.': ['parenthesis', 'quotes', 'curly brackets', 'square brackets', 'parenthesis']
+var quiz = { 'Commonly used data types DO Not Include':                                                              ['alerts', 'strings', 'booleans', 'alerts', 'numbers'], 
+                'The condition in an if/else statement is enclosed with ________.':                                  ['parenthesis', 'quotes', 'curly brackets', 'square brackets', 'parenthesis'],
+                'Arrays in javascript can be used to store ____.':                                                   ['all of the above', 'numbers and strings', 'other arrays', 'booleans', 'all of the above'],
+                'String values must be enclosed within ____ when being assigned to variables.':                      ['quotes', 'commas', 'curly brackets', 'parenthesis', 'quotes'],
+                'A very useful tool used during development and debugging for printing content to the debugger is:': ['console.log', 'JavaScript', 'terminal/bash', 'for loops', 'console.log'],
+                'One of the difference between a function declaration and a function expression is:':                ['a function expression can not be used before it is defined', 'a function declaration is not hoisted', 'a function expression is always anonymous', 'a function expression is always set equal to a variable', 'a function expression can not be used before it is defined'],
+                'Do functions in javasript always have a return value?':                                             ['Yes, and when not specified it is undefined', 'No, they do not need a return statement and sometimes have no return value', 'Yes, they will throw an error without a return statement.', 'No, function declaration must have a return value but a function expression doesnt need one.', 'Yes, and when not specified it is undefined'],
+                'What is a function in javascript':                                                                  ['A function in javascript is an object and can be passed to another function as a parameter', 'A function doesnt have a type because it is simply a set of commands.', 'A function in javascript is a type of map.', 'A function is a special class in javascript', 'A function in javascript is an object and can be passed to another function as a parameter'],
+                'Keys in an object can be accessed via:':                                                            ['Object.keys(<yourObjectName>)', '<yourObjectName>.keys', '<yourObjectName>.Object.keys', 'Only one at a time, making it necessary to loop through the object to get them.', 'Object.keys(<yourObjectName>)'],
+                'What is the difference between Object.entries(), Object.keys(), and Object.values()?':              ['Object.values() and Object.keys() return arrays of values and keys, respectively. Object.entries returns an array of key-value pairs ([[key, value]])', 'They all return the same thing', 'Object.keys() and Object.values() return arrays of keys and values respectively, but Object.entries returns the order in which key-value pairs where added.', 'Object.keys() and Object.values() return objects with only keys and values respecitively, Object.entries() copies the object and returns the copy.', 'Object.values() and Object.keys() return arrays of values and keys, respectively. Object.entries returns an array of key-value pairs ([[key, value]])']
+
 }
 var myTimer;
 var numberOfQuestions = Object.keys(quiz).length;
 var userScore = 0;
-var milliSecondLengthOfQuiz = 60000; //60 seconds
+var lengthOfQuizInSeconds = '180' //3 minutes
 
 loadHomepage();
 
@@ -40,7 +49,7 @@ function loadQuiz() {
     clearPage();
 
     quizDiv.append(createElement('div', {'id': 'quizQuestionDiv'}));
-    quizDiv.append(createElement('p', {'id': 'timer'}, '60'))
+    quizDiv.append(createElement('p', {'id': 'timer'}, lengthOfQuizInSeconds))
     var questions = shuffleArray(Object.keys(quiz)).slice();
     loadQuizQuestion(questions, 0);
     startTimer();
@@ -60,7 +69,7 @@ function loadQuizQuestion(questions, number){
         possibleAnswers.shift();
         shuffleArray(possibleAnswers);
         quizQuestionDiv.append(createElement('p', {'id': 'questionText'}, question));
-        var maxQuestionScore = possibleAnswers.length * 10;
+        var maxQuestionScore = 10; //10 questions, 10 points per question = 100 point quiz
         possibleAnswers.forEach(answer => {
 
             var answerRadio = createElement('input', {'id': answer, 'class': 'answerRadio', 'type': 'radio', 'name':'answerRadio', 'value': answer})
@@ -82,7 +91,7 @@ function loadQuizQuestion(questions, number){
                 }
                 else
                 {
-                    maxQuestionScore = maxQuestionScore - 10;
+                    maxQuestionScore = maxQuestionScore - 3;
                     document.querySelector('#timer').innerText = parseInt(document.querySelector('#timer').innerText) - 10
                     if( document.querySelector('.feedbackText') ){ document.querySelector('.feedbackText').remove(); }
                     quizQuestionDiv.append(createElement('p', {'class': 'feedbackText'}, 'Not Quite, try again!')); 
@@ -166,7 +175,7 @@ function loadHighScores() {
             localStorage.clear();
             document.querySelector('.scoreRow').remove();
             scoresTableDiv.style.display = 'none';
-            $this.remove();
+            this.remove();
             loadHighScores();
         });
     }
